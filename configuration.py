@@ -10,7 +10,7 @@ import pathlib
 
 __config = configparser.ConfigParser()
 path = pathlib.Path(__file__)
-__config.read(str(path.absolute().parent) + "/config.ini")
+__config.read(str(path.absolute().parent) + "/config.cfg")
 
 
 def get(section, key):
