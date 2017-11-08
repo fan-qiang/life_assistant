@@ -24,7 +24,7 @@
     
     安装python依赖包: 
     ``` 
-    $ (env)> pip install requests pil pytesseract prettytable
+    $ (env)> pip install requests  pytesseract prettytable
     ```
     
     安装sipss:
