@@ -208,7 +208,7 @@ class SocialSecurityRecords(object):
     """
     def __init__(self, username, records):
         self.__username = username
-        self.__records = records
+        self.__records = [record for record in records if '正常工资1' == record['renderType']]
 
     def pretty(self):
         """ 返回一个格式化输出 PrettyTable对象 """
@@ -216,27 +216,18 @@ class SocialSecurityRecords(object):
         print_head = "月 缴费类型 缴费基数 入账金额 住房账户 医疗账户 养老个人 养老补充".split(" ")
         pt = PrettyTable(print_head)
         for line in self.__records:
-            if '正常工资1' == line['renderType']:
-                pt.add_row((line['belongMonth'], line['renderType'], line['baseMoney'], line['sumMoney'],
-                            line['medicalHosingAcc'], line['retiredMedicalAcc'], line['commonRetiredAcc'],
-                            line['specilRetiredAcc']))
+            pt.add_row((line['belongMonth'], line['renderType'], line['baseMoney'], line['sumMoney'],
+                        line['medicalHosingAcc'], line['retiredMedicalAcc'], line['commonRetiredAcc'],
+                        line['specilRetiredAcc']))
         return pt
 
     def months(self):
         """ 计算累积的月份 """
-        months = 0
-        for line in self.__records:
-            if '正常工资1' == line['renderType']:
-                months += 1
-        return months
+        return len(self.__records)
 
     def last_month(self):
         """ 计算最后一次社保缴费的月份 """
-        last = None
-        for line in self.__records:
-            if '正常工资1' == line['renderType']:
-                last = line['belongMonth']
-        return last
+        return self.__records[-1]['belongMonth']
 
     def mail(self):
         """ 将社保记录转为邮件的格式 """
