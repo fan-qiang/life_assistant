@@ -39,7 +39,7 @@ def send_email(to, subject, html_content):
     from_name = configuration.get("mail", "from")
 
     msg = MIMEMultipart()
-    msg['From'] = _format_addr('%s %s' % (from_name, user))
+    msg['From'] = _format_addr('%s <%s>' % (from_name, user))
     msg['To'] = _format_addr(to)
     msg['Subject'] = Header(subject).encode()
 

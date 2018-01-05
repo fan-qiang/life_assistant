@@ -8,10 +8,10 @@
 import configparser
 import pathlib
 
-__config = configparser.ConfigParser()
+_config = configparser.ConfigParser()
 path = pathlib.Path(__file__)
-__config.read(str(path.absolute().parent) + "/config.cfg")
+_config.read(str(path.absolute().parent) + "/config.cfg", encoding='utf-8')
 
 
 def get(section, key):
-    return __config.get(section, key)
+    return _config.get(section, key)
